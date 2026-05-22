@@ -4,6 +4,9 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.scrolled import ScrolledFrame
 import subprocess
 import sys
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def register_action():
     name     = name_var.get().strip()
@@ -16,46 +19,46 @@ def register_action():
     address  = address_var.get().strip()
 
     if not name:
-        status_var.set("⚠ Name is required!")
+        status_var.set("Name is required!")
         return
     if not phone:
-        status_var.set("⚠ Phone number is required!")
+        status_var.set("Phone number is required!")
         return
     if not phone.isdigit():
-        status_var.set("⚠ Phone number must contain only digits!")
+        status_var.set("Phone number must contain only digits!")
         return
     if not username:
-        status_var.set("⚠ Username is required!")
+        status_var.set("Username is required!")
         return
     if not password:
-        status_var.set("⚠ Password is required!")
+        status_var.set("Password is required!")
         return
     if len(password) < 6:
-        status_var.set("⚠ Password must be at least 6 characters!")
+        status_var.set("Password must be at least 6 characters!")
         return
     if not age:
-        status_var.set("⚠ Age is required!")
+        status_var.set("Age is required!")
         return
     if not age.isdigit():
-        status_var.set("⚠ Age must be a number!")
+        status_var.set("Age must be a number!")
         return
     if not blood:
-        status_var.set("⚠ Blood group is required!")
+        status_var.set("Blood group is required!")
         return
     if not gender:
-        status_var.set("⚠ Gender is required!")
+        status_var.set("Gender is required!")
         return
     if not address:
-        status_var.set("⚠ Address is required!")
+        status_var.set("Address is required!")
         return
 
     status_var.set("")
-    app.destroy()
-    subprocess.Popen([
-        sys.executable,
-        "C:/Users/Pratik Fuyal/Desktop/Hopify/frontend/patient_dashboard.py",
-        name, phone, username, password, age, blood, gender, address
-    ])
+    if "dr" in username:
+        app.destroy()
+        subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "doctor_dashboard.py"), username])
+    elif "pa" in username:
+        app.destroy()
+        subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "patient_dashboard.py"), username, "", username, "", "", "", "", ""])
 
 def login_redirect():
     app.destroy()

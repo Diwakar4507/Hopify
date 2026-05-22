@@ -3,6 +3,9 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import subprocess
 import sys
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def login_action():
     username = username_var.get().strip()
@@ -20,13 +23,13 @@ def login_action():
 
     app.destroy()
     if "dr" in username:
-        subprocess.Popen([sys.executable, "C:/Users/Pratik Fuyal/Desktop/Hopify/frontend/doctor_dashboard.py", username])
+        subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "doctor_dashboard.py"), username])
     elif "pa" in username:
-        subprocess.Popen([sys.executable, "C:/Users/Pratik Fuyal/Desktop/Hopify/frontend/patient_dashboard.py", username, "", username, "", "", "", "", ""])
+        subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "patient_dashboard.py"), username, "", username, "", "", "", "", ""])
 
 def signup_action():
     app.destroy()
-    subprocess.Popen([sys.executable, "C:/Users/Pratik Fuyal/Desktop/Hopify/frontend/signup.py"])
+    subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "signup.py")])
 
 app = ttk.Window(themename="darkly")
 app.title("HOPIFY/Login")

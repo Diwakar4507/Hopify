@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import ttkbootstrap as tbs
 from ttkbootstrap.constants import *
 import datetime
+import subprocess, os, sys
 
 CLR_SIDEBAR    = "#0F1F3D"
 CLR_SIDEBAR_LT = "#162848"
@@ -24,6 +25,8 @@ FONT_BODY  = ("Segoe UI", 11)
 FONT_SMALL = ("Segoe UI", 9)
 FONT_NAV   = ("Segoe UI", 11)
 FONT_STAT  = ("Segoe UI", 26, "bold")
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class DoctorDashboard(tbs.Window):
@@ -177,7 +180,8 @@ class DoctorDashboard(tbs.Window):
     def set_active(self, lbl):
         if lbl == "Logout":
             if messagebox.askyesno("HOPIFY", "Are you sure you want to logout?"):
-                self.quit()
+                app.destroy()
+                subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "login_page.py")])
             return
 
         for btn_lbl, (btn_f, btn_t, btn_i, btn_a) in self._nav_buttons.items():

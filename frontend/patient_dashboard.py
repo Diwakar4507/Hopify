@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import datetime
 import sys
+import subprocess
+import os
 
 try:
     import ttkbootstrap as tbs
@@ -38,6 +40,7 @@ else:
     _BASE_KWARGS = {}
 
 args = sys.argv[1:]
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class PatientDashboard(BaseWindow):
 
@@ -172,6 +175,7 @@ class PatientDashboard(BaseWindow):
         if lbl == "Logout":
             if messagebox.askyesno("HOPIFY", "Are you sure you want to logout?"):
                 self.destroy()
+                subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "login_page.py")])
             return
 
         for btn_lbl, (btn_f, btn_t, btn_i, btn_a) in self._nav_buttons.items():

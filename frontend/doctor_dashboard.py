@@ -5,8 +5,8 @@ from ttkbootstrap.constants import *
 import datetime
 import subprocess, os, sys
 
-CLR_SIDEBAR    = "#0F1F3D"
-CLR_SIDEBAR_LT = "#162848"
+CLR_SIDEBAR    = "#2563B0"
+CLR_SIDEBAR_LT = "#3074C2"
 CLR_PRIMARY    = "#1A73E8"
 CLR_ACCENT     = "#00C9A7"
 CLR_BG         = "#F4F7FE"
@@ -115,7 +115,7 @@ class DoctorDashboard(tbs.Window):
         tk.Label(logo_frame, text="🏥", bg=CLR_SIDEBAR, font=("Segoe UI Emoji", 22)).pack(side=LEFT)
         tk.Label(logo_frame, text=" HOPIFY", bg=CLR_SIDEBAR, fg=CLR_WHITE, font=FONT_LOGO).pack(side=LEFT)
 
-        tk.Label(sb, text="Doctor Portal", bg=CLR_SIDEBAR, fg="#7A94BE", font=FONT_SMALL).pack(anchor=W, padx=22, pady=(0, 14))
+        tk.Label(sb, text="Doctor Portal", bg=CLR_SIDEBAR, fg="#A0BEE0", font=FONT_SMALL).pack(anchor=W, padx=22, pady=(0, 14))
 
         self._sidebar_divider(sb)
 
@@ -141,13 +141,13 @@ class DoctorDashboard(tbs.Window):
         info = tk.Frame(user_frame, bg=CLR_SIDEBAR_LT)
         info.pack(side=LEFT)
         tk.Label(info, text=self.doctor["name"], bg=CLR_SIDEBAR_LT, fg=CLR_WHITE, font=("Segoe UI", 10, "bold")).pack(anchor=W)
-        tk.Label(info, text=self.doctor["specialization"].title(), bg=CLR_SIDEBAR_LT, fg="#7A94BE", font=FONT_SMALL).pack(anchor=W)
+        tk.Label(info, text=self.doctor["specialization"].title(), bg=CLR_SIDEBAR_LT, fg="#A0BEE0", font=FONT_SMALL).pack(anchor=W)
 
         self._nav_item(sb, "🚪", "Logout")
         return sb
 
     def _sidebar_divider(self, parent):
-        tk.Frame(parent, bg="#1E3460", height=1).pack(fill=X, padx=14, pady=6)
+        tk.Frame(parent, bg="#4A90D9", height=1).pack(fill=X, padx=14, pady=6)
 
     def _nav_item(self, parent, icon, label):
         is_logout = label == "Logout"
@@ -157,7 +157,7 @@ class DoctorDashboard(tbs.Window):
         icon_lbl = tk.Label(frame, text=icon, bg=CLR_SIDEBAR, fg=CLR_WHITE, font=("Segoe UI Emoji", 13))
         icon_lbl.pack(side=LEFT, padx=(0, 10))
 
-        text_lbl = tk.Label(frame, text=label, bg=CLR_SIDEBAR, fg="#A8C0E0" if not is_logout else "#EF8080", font=FONT_NAV, anchor=W)
+        text_lbl = tk.Label(frame, text=label, bg=CLR_SIDEBAR, fg="#C8D8F0" if not is_logout else "#EF8080", font=FONT_NAV, anchor=W)
         text_lbl.pack(side=LEFT, fill=X)
 
         accent = tk.Frame(frame, bg=CLR_ACCENT, width=4)
@@ -167,14 +167,14 @@ class DoctorDashboard(tbs.Window):
         for w in [frame, icon_lbl, text_lbl]:
             w.bind("<Button-1>", lambda e, label_name=label: self.set_active(label_name))
             w.bind("<Enter>", lambda e, f=frame, t=text_lbl, i=icon_lbl, lbl=label: 
-                   (f.config(bg="#162848"), t.config(bg="#162848"), i.config(bg="#162848")) if lbl != self.active_nav.get() else None)
+                   (f.config(bg="#2E72C2"), t.config(bg="#2E72C2"), i.config(bg="#2E72C2")) if lbl != self.active_nav.get() else None)
             w.bind("<Leave>", lambda e, f=frame, t=text_lbl, i=icon_lbl, lbl=label: 
                    (f.config(bg=CLR_SIDEBAR), t.config(bg=CLR_SIDEBAR), i.config(bg=CLR_SIDEBAR)) if lbl != self.active_nav.get() else None)
 
         if label == "Dashboard":
-            frame.config(bg="#1B3867")
-            text_lbl.config(bg="#1A3A6E", fg=CLR_WHITE, font=("Segoe UI", 11, "bold"))
-            icon_lbl.config(bg="#1A3A6E")
+            frame.config(bg="#3D85D0")
+            text_lbl.config(bg="#3D85D0", fg=CLR_WHITE, font=("Segoe UI", 11, "bold"))
+            icon_lbl.config(bg="#3D85D0")
             accent.pack(side=LEFT, fill=Y, padx=(4, 0))
 
     def set_active(self, lbl):
@@ -186,14 +186,14 @@ class DoctorDashboard(tbs.Window):
 
         for btn_lbl, (btn_f, btn_t, btn_i, btn_a) in self._nav_buttons.items():
             btn_f.config(bg=CLR_SIDEBAR)
-            btn_t.config(bg=CLR_SIDEBAR, fg="#A8C0E0" if btn_lbl != "Logout" else "#EF8080", font=FONT_NAV)
+            btn_t.config(bg=CLR_SIDEBAR, fg="#C8D8F0" if btn_lbl != "Logout" else "#EF8080", font=FONT_NAV)
             btn_i.config(bg=CLR_SIDEBAR)
             btn_a.pack_forget()
 
         frame, text_lbl, icon_lbl, accent = self._nav_buttons[lbl]
-        frame.config(bg="#1B3867")
-        text_lbl.config(bg="#1A3A6E", fg=CLR_WHITE, font=("Segoe UI", 11, "bold"))
-        icon_lbl.config(bg="#1A3A6E")
+        frame.config(bg="#3D85D0")
+        text_lbl.config(bg="#3D85D0", fg=CLR_WHITE, font=("Segoe UI", 11, "bold"))
+        icon_lbl.config(bg="#3D85D0")
         accent.pack(side=LEFT, fill=Y, padx=(4, 0))
         
         self.active_nav.set(lbl)
@@ -220,7 +220,7 @@ class DoctorDashboard(tbs.Window):
                   command=self._add_prescription_dialog).pack(side=LEFT, padx=(0, 10))
 
         tk.Button(right, text="Manage Schedule", bg=CLR_PRIMARY, fg=CLR_WHITE, font=("Segoe UI", 10, "bold"), 
-                  relief=FLAT, cursor="hand2", padx=14, pady=7, activebackground="#1558b0", activeforeground=CLR_WHITE, 
+                  relief=FLAT, cursor="hand2", padx=14, pady=7, activebackground="#204474", activeforeground=CLR_WHITE, 
                   command=self._manage_schedule_dialog).pack(side=LEFT)
 
     def _show_page(self, page_name):

@@ -11,14 +11,14 @@ try:
 except ImportError:
     USE_BOOTSTRAP = False
 
-CLR_SIDEBAR    = "#0F1F3D"
-CLR_SIDEBAR_LT = "#162848"
+CLR_SIDEBAR    =   "#2C57BC"
+CLR_SIDEBAR_LT = "#132D57"
 CLR_PRIMARY    = "#1A73E8"
 CLR_ACCENT     = "#00C9A7"
 CLR_BG         = "#F4F7FE"
 CLR_WHITE      = "#FFFFFF"
 CLR_TEXT       = "#1E2A3A"
-CLR_MUTED      = "#6B7A99"
+CLR_MUTED      = "#465C89"
 CLR_BORDER     = "#E2E8F0"
 CLR_DANGER     = "#EF4444"
 CLR_WARNING    = "#F59E0B"
@@ -101,7 +101,7 @@ class PatientDashboard(BaseWindow):
         tk.Label(logo_frame, text="🏥", bg=CLR_SIDEBAR, font=("Segoe UI Emoji", 22)).pack(side=tk.LEFT)
         tk.Label(logo_frame, text=" HOPIFY", bg=CLR_SIDEBAR, fg=CLR_WHITE, font=FONT_LOGO).pack(side=tk.LEFT)
 
-        tk.Label(sb, text="Patient Portal", bg=CLR_SIDEBAR, fg="#7A94BE", font=FONT_SMALL).pack(anchor=tk.W, padx=22, pady=(0, 14))
+        tk.Label(sb, text="Patient Portal", bg=CLR_SIDEBAR, fg="#F6F7F9", font=FONT_SMALL).pack(anchor=tk.W, padx=22, pady=(0, 14))
 
         self._sidebar_divider(sb)
 
@@ -211,10 +211,10 @@ class PatientDashboard(BaseWindow):
         right = tk.Frame(bar, bg=CLR_WHITE)
         right.pack(side=tk.RIGHT, padx=24)
 
-        tk.Button(right, text="＋  Book Appointment", bg=CLR_PRIMARY, fg=CLR_WHITE, font=("Segoe UI", 10, "bold"),
-                  relief=tk.FLAT, cursor="hand2", padx=14, pady=7,
-                  activebackground="#1558b0", activeforeground=CLR_WHITE,
-                  command=self._book_appointment_dialog).pack(side=tk.LEFT, padx=(0, 16))
+        tk.Button(left, text="Book Appointment →", bg=CLR_ACCENT, fg=CLR_WHITE, font=("Segoe UI", 9, "bold"),
+          relief=tk.FLAT, cursor="hand2", padx=10, pady=2,
+          activebackground="#00a88e", activeforeground=CLR_WHITE,
+          command=self._book_appointment_dialog).pack(anchor=tk.W, pady=(4, 0))
 
         tk.Label(right, text="🔔", bg=CLR_WHITE, font=("Segoe UI Emoji", 14), cursor="hand2").pack(side=tk.LEFT, padx=4)
 
@@ -233,7 +233,7 @@ class PatientDashboard(BaseWindow):
             elif name == "My Profile":
                 self._build_profile_page(frame)
             else:
-                tk.Label(frame, text=f"🚧  {name} — Coming Soon", bg=CLR_BG, fg=CLR_MUTED, font=("Segoe UI", 14)).pack(expand=True)
+                tk.Label(frame, text=f"  {name}  ", bg=CLR_BG, fg=CLR_MUTED, font=("Segoe UI", 14)).pack(expand=True)
             self.pages[name] = frame
 
         self.pages[name].pack(fill=tk.BOTH, expand=True)
@@ -287,15 +287,10 @@ class PatientDashboard(BaseWindow):
 
         tk.Label(left, text=f"{greeting}, {self.patient['name']} 👋", bg=CLR_PRIMARY, fg=CLR_WHITE, font=("Segoe UI", 15, "bold")).pack(anchor=tk.W)
         tk.Label(left, text=f"Patient ID: {self.patient['id']}  •  Welcome to your HOPIFY portal.", bg=CLR_PRIMARY, fg="#B8D4FF", font=FONT_BODY).pack(anchor=tk.W, pady=(4, 10))
-        tk.Button(left, text="Book Appointment →", bg=CLR_ACCENT, fg=CLR_WHITE, font=("Segoe UI", 10, "bold"),
-                  relief=tk.FLAT, cursor="hand2", padx=12, pady=5,
-                  activebackground="#00a88e", activeforeground=CLR_WHITE,
-                  command=self._book_appointment_dialog).pack(anchor=tk.W)
 
         right = tk.Frame(banner, bg=CLR_PRIMARY)
         right.pack(side=tk.RIGHT, padx=28)
         tk.Label(right, text="🏥", bg=CLR_PRIMARY, font=("Segoe UI Emoji", 48)).pack()
-
     def _quick_stats(self, parent):
         tk.Label(parent, text="Quick Overview", bg=CLR_BG, fg=CLR_MUTED, font=("Segoe UI", 10, "bold")).pack(anchor=tk.W, padx=28, pady=(22, 8))
 
@@ -312,7 +307,7 @@ class PatientDashboard(BaseWindow):
             self._stat_card(row, icon, title, val, sub, color, i)
 
     def _stat_card(self, parent, icon, title, value, sub, color, col):
-        card = tk.Frame(parent, bg=CLR_WHITE, padx=18, pady=16, highlightbackground=CLR_BORDER, highlightthickness=1)
+        card = tk.Frame(parent, bg=CLR_WHITE, padx=16, pady=14, highlightbackground=CLR_BORDER, highlightthickness=1)
         card.grid(row=0, column=col, sticky=tk.NSEW, padx=(0, 14) if col < 3 else 0)
         parent.columnconfigure(col, weight=1)
 
@@ -574,14 +569,14 @@ class PatientDashboard(BaseWindow):
     def _book_appointment_dialog(self):
         dialog = tk.Toplevel(self)
         dialog.title("Book Appointment — HOPIFY")
-        dialog.geometry("460x500")
+        dialog.geometry("480x520")
         dialog.resizable(False, False)
         dialog.configure(bg=CLR_WHITE)
         dialog.grab_set()
 
-        x = self.winfo_x() + (self.winfo_width()  - 460) // 2
-        y = self.winfo_y() + (self.winfo_height() - 500) // 2
-        dialog.geometry(f"460x500+{x}+{y}")
+        x = self.winfo_x() + (self.winfo_width()  - 480) // 2
+        y = self.winfo_y() + (self.winfo_height() - 520) // 2
+        dialog.geometry(f"480x520+{x}+{y}")
 
         hdr = tk.Frame(dialog, bg=CLR_PRIMARY, pady=18)
         hdr.pack(fill=tk.X)
@@ -592,7 +587,7 @@ class PatientDashboard(BaseWindow):
         form.pack(fill=tk.BOTH, expand=True)
 
         fields_placeholders = [
-            ("Doctor / Specialist", "e.g. Dr. Patel"),
+            ("Doctor / Specialist", "e.g. Dr. xxxx"),
             ("Department",          "e.g. Cardiology"),
             ("Preferred Date",      "YYYY-MM-DD"),
             ("Preferred Time",      "e.g. 10:00 AM"),
